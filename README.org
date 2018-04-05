@@ -1,0 +1,29 @@
+Example of fully functional simple Emacs configuration.
+
+* The venerable Emacs
+
+- ~ 120k Lines of Lisp
+- ~ 30k Lines of C
+- 557 contributors
+- 130k commits
+
+* Terminology
+
+  - buffer
+  - window
+  - frame
+  - M-x
+
+* Text editor?
+
+* Major - minor mode
+
+* Self documenting magic
+
+* Elisp crash course
+
+- dynamic scoping
+- everything prefixed
+* Life of a click
+* Hooks all over the place
+* Your very simple mode
