@@ -1,3 +1,8 @@
+#+TITLE: Emacs Introduction
+#+AUTHOR: Andrea Crotti
+#+BABEL: :cache yes
+#+PROPERTY: header-args :tangle yes
+
 Example of fully functional simple Emacs configuration.
 
 * The venerable Emacs
@@ -7,6 +12,40 @@ Example of fully functional simple Emacs configuration.
 - 557 contributors
 - 130k commits
 
+* Useful packages
+
+#+BEGIN_SRC emacs-lisp
+  (setq packages-to-install
+        '(cider
+          cljr-helm
+          company-mode
+          clojure-mode
+
+          diff-hl
+          edit-server
+          elein
+          exec-path-from-shell
+          gist
+          magit
+          magithub
+
+          flycheck
+
+          helm
+          helm-ag
+          helm-projectile
+          helm-google
+
+          yasnippet
+          yasnippet-snippets
+          smartparens
+          sx
+
+          ;; few nice themes
+          zenburn-theme
+          noctilux-theme))
+#+END_SRC
+
 * Terminology
 
   - buffer
@@ -14,16 +53,20 @@ Example of fully functional simple Emacs configuration.
   - frame
   - M-x
 
+* Melpa!
+
+3778 packages!
+
+https://melpa.org/
+
 * Text editor?
 
 * Major - minor mode
-
+ * Hooks, hooks everywhere
 * Self documenting magic
-
 * Elisp crash course
 
 - dynamic scoping
 - everything prefixed
 * Life of a click
-* Hooks all over the place
 * Your very simple mode
