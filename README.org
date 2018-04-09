@@ -68,6 +68,7 @@ https://melpa.org/
 
            flycheck
            flycheck-joker
+           kibit
 
            helm
            helm-ag
@@ -208,18 +209,6 @@ https://melpa.org/
 
 #+END_SRC
 
-** Global key setup
-
-#+BEGIN_SRC emacs-lisp
-(global-set-key [f2] 'split-window-horizontally)
-(global-set-key [f5] 'helm-imenu)
-(global-set-key [f7] 'helm-projectile-find-file)
-(global-set-key "\C-xg" 'magit-status)
-
-;; use helm!
-(global-set-key (kbd "M-x") 'helm-M-x)
-#+END_SRC
-
 ** Helm settings
 
 #+BEGIN_SRC emacs-lisp
@@ -236,4 +225,35 @@ https://melpa.org/
       helm-locate-fuzzy-match t
       helm-use-frame-when-more-than-two-windows nil
       helm-M-x-fuzzy-match t)
+#+END_SRC
+
+** Moving around
+
+
+#+BEGIN_SRC emacs-lisp
+
+(defun ca-next-defun ()
+  (interactive)
+  (end-of-defun 2)
+  (beginning-of-defun 1))
+
+(defun ca-prev-defun ()
+  (interactive)
+  (beginning-of-defun))
+
+#+END_SRC
+
+** Global key setup
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key [f2] 'split-window-horizontally)
+  (global-set-key [f5] 'helm-imenu)
+  (global-set-key [f7] 'helm-projectile-find-file)
+  (global-set-key "\C-xg" 'magit-status)
+
+  ;; use helm!
+  (global-set-key (kbd "M-x") 'helm-M-x)
+
+  (global-set-key (kbd "M-p") 'ca-prev-defun)
+  (global-set-key (kbd "M-n") 'ca-next-defun)
 #+END_SRC
