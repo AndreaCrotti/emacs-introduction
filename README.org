@@ -39,11 +39,31 @@ Example of fully functional simple Emacs configuration.
           yasnippet
           yasnippet-snippets
           smartparens
+          rainbow-delimiters
+          rainbow-mode
           sx
 
           ;; few nice themes
           zenburn-theme
-          noctilux-theme))
+          noctilux-theme
+          undo-tree))
+#+END_SRC
+
+* Set up package manager
+
+#+BEGIN_SRC emacs-lisp
+  (package-initialize)
+  (add-to-list 'package-archives
+               '("melpa" . "https://melpa.org/packages/"))
+
+  (defun install-if-needed (package)
+    (unless (package-installed-p package)
+      (package-install package)))
+
+  (package-refresh-contents)
+
+  ;; now install all the required packages
+  (mapc 'install-if-needed ca-to-install)
 #+END_SRC
 
 * Terminology
@@ -62,7 +82,7 @@ https://melpa.org/
 * Text editor?
 
 * Major - minor mode
- * Hooks, hooks everywhere
+* Hooks, hooks everywhere
 * Self documenting magic
 * Elisp crash course
 
