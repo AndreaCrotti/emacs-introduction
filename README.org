@@ -45,11 +45,12 @@ https://melpa.org/
 ** Useful packages
 
  #+BEGIN_SRC emacs-lisp
-   (setq packages-to-install
+   (setq my-to-install
          '(cider
            cljr-helm
-           company-mode
+           company
            clojure-mode
+           company-restclient
 
            diff-hl
            edit-server
@@ -68,6 +69,7 @@ https://melpa.org/
            helm-google
 
            multiple-cursors
+           restclient
 
            yasnippet
            yasnippet-snippets
@@ -96,7 +98,7 @@ https://melpa.org/
   (package-refresh-contents)
 
   ;; now install all the required packages
-  (mapc 'install-if-needed ca-to-install)
+  (mapc 'install-if-needed my-to-install)
 
  #+END_SRC
 
@@ -135,4 +137,41 @@ https://melpa.org/
 
    (setq cider-repl-use-clojure-font-lock t
          cider-auto-test-mode t)
+#+END_SRC
+
+** Platform specific settings
+
+#+BEGIN_SRC emacs-lisp
+  (setq
+   ns-alternate-modifier (quote none)
+   ns-pop-up-frames 1
+   ns-command-modifier (quote meta))
+#+END_SRC
+
+** Load a nice theme
+
+#+BEGIN_SRC emacs-lisp
+  ;; (load-theme 'noctilux)
+#+END_SRC
+
+** Restclient configuration
+
+#+BEGIN_SRC emacs-lisp
+  (require 'restclient)
+  (require 'outline)
+  (require 'outline-magic)
+
+  (add-to-list 'auto-mode-alist '("\\.rest" . restclient-mode))
+
+  (eval-after-load 'outline
+    '(progn
+       (require 'outline-magic)))
+
+  (add-hook 'restclient-mode-hook 'outline-minor-mode)
+  (add-hook 'restclient-mode-hook
+            (lambda ()
+              (outline-minor-mode t)
+              (local-set-key (kbd "<tab>") 'outline-cycle)
+              (setq outline-regexp "#+")))
+
 #+END_SRC
