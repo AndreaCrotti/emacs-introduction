@@ -1,7 +1,12 @@
 #+TITLE: Emacs Introduction
 #+AUTHOR: Andrea Crotti
+#+EMAIL: andrea.crotti.0@gmail.com
+#+OPTIONS: num:nil ^:nil tex:t toc:nil reveal_progress:t reveal_control:t reveal_overview:t
+#+REVEAL_TRANS: fade
+#+REVEAL_SPEED: fast
 #+BABEL: :cache yes
 #+PROPERTY: header-args :tangle yes
+#+TOC: listings
 
 Example of fully functional simple Emacs configuration.
 
