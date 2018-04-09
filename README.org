@@ -29,7 +29,6 @@
 https://melpa.org/
 
 * Text editor?
-
 * Major - minor mode
 * Hooks, hooks everywhere
 * Self documenting magic
@@ -37,8 +36,15 @@ https://melpa.org/
 
 - dynamic scoping
 - everything prefixed
-* Life of a click
-* Your very simple mode
+
+#+BEGIN_SRC emacs-lisp :tangle no
+  (defun fib (n)
+    (cond ((= n 0) 0)
+          ((= n 1) 1)
+          (t (+ (fib (- n 1))
+                (fib (- n 2))))))
+#+END_SRC
+
 * Questions?
 
 * Configuration
@@ -212,4 +218,22 @@ https://melpa.org/
 
 ;; use helm!
 (global-set-key (kbd "M-x") 'helm-M-x)
+#+END_SRC
+
+** Helm settings
+
+#+BEGIN_SRC emacs-lisp
+(require 'helm)
+(require 'helm-projectile)
+(require 'helm-config)
+
+(helm-mode t)
+
+(helmq-autoresize-mode t)
+
+(setq helm-buffers-fuzzy-matching t
+      helm-recentf-fuzzy-match t
+      helm-locate-fuzzy-match t
+      helm-use-frame-when-more-than-two-windows nil
+      helm-M-x-fuzzy-match t)
 #+END_SRC
