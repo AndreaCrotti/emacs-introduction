@@ -8,68 +8,12 @@
 #+PROPERTY: header-args :tangle yes
 #+TOC: listings
 
-Example of fully functional simple Emacs configuration.
-
 * The venerable Emacs
 
 - ~ 120k Lines of Lisp
 - ~ 30k Lines of C
 - 557 contributors
 - 130k commits
-
-* Useful packages
-
-#+BEGIN_SRC emacs-lisp
-  (setq packages-to-install
-        '(cider
-          cljr-helm
-          company-mode
-          clojure-mode
-
-          diff-hl
-          edit-server
-          elein
-          exec-path-from-shell
-          gist
-          magit
-          magithub
-
-          flycheck
-
-          helm
-          helm-ag
-          helm-projectile
-          helm-google
-
-          yasnippet
-          yasnippet-snippets
-          smartparens
-          rainbow-delimiters
-          rainbow-mode
-          sx
-
-          ;; few nice themes
-          zenburn-theme
-          noctilux-theme
-          undo-tree))
-#+END_SRC
-
-* Set up package manager
-
-#+BEGIN_SRC emacs-lisp
-  (package-initialize)
-  (add-to-list 'package-archives
-               '("melpa" . "https://melpa.org/packages/"))
-
-  (defun install-if-needed (package)
-    (unless (package-installed-p package)
-      (package-install package)))
-
-  (package-refresh-contents)
-
-  ;; now install all the required packages
-  (mapc 'install-if-needed ca-to-install)
-#+END_SRC
 
 * Terminology
 
@@ -95,3 +39,100 @@ https://melpa.org/
 - everything prefixed
 * Life of a click
 * Your very simple mode
+* Questions?
+
+* Configuration
+** Useful packages
+
+ #+BEGIN_SRC emacs-lisp
+   (setq packages-to-install
+         '(cider
+           cljr-helm
+           company-mode
+           clojure-mode
+
+           diff-hl
+           edit-server
+           elein
+           exec-path-from-shell
+           gist
+           magit
+           magithub
+
+           flycheck
+           flycheck-joker
+
+           helm
+           helm-ag
+           helm-projectile
+           helm-google
+
+           multiple-cursors
+
+           yasnippet
+           yasnippet-snippets
+           smartparens
+           rainbow-delimiters
+           rainbow-mode
+           sx
+
+           ;; few nice themes
+           zenburn-theme
+           noctilux-theme
+           undo-tree))
+ #+END_SRC
+
+** Set up package manager
+
+#+BEGIN_SRC emacs-lisp
+  (package-initialize)
+  (add-to-list 'package-archives
+               '("melpa" . "https://melpa.org/packages/"))
+
+  (defun install-if-needed (package)
+    (unless (package-installed-p package)
+      (package-install package)))
+
+  (package-refresh-contents)
+
+  ;; now install all the required packages
+  (mapc 'install-if-needed ca-to-install)
+
+ #+END_SRC
+
+** Set up magit and magithub
+
+#+BEGIN_SRC emacs-lisp
+  (require 'magit)
+  (require 'magithub)
+  (magithub-feature-autoinject t)
+
+  (setq magit-push-always-verify nil)
+  ;; use Emacs to edit commit mode
+  (global-git-commit-mode t)
+
+  (add-hook 'git-commit-mode-hook
+            (lambda ()
+              (flyspell-mode t)
+              (auto-fill-mode t)))
+#+END_SRC
+
+** Cider settings
+
+#+BEGIN_SRC emacs-lisp
+   (require 'cider)
+   (require 'cider-eldoc)
+   (require 'clj-refactor)
+
+   (require 'flycheck-joker)
+
+   (autoload 'clojure-mode "clojure-mode" "clojure mode" t)
+
+   (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
+
+   (add-hook 'clojure-mode-hook 'cider-mode)
+   (add-hook 'clojurescript-mode-hook 'cider-mode)
+
+   (setq cider-repl-use-clojure-font-lock t
+         cider-auto-test-mode t)
+#+END_SRC
