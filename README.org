@@ -102,6 +102,32 @@ https://melpa.org/
 
  #+END_SRC
 
+** Global settings
+
+#+BEGIN_SRC emacs-lisp
+(global-flycheck-mode t)
+(column-number-mode t)
+(display-time-mode t)
+(global-company-mode t)
+(global-linum-mode t)
+(global-prettify-symbols-mode t)
+(indent-guide-global-mode t)
+(show-paren-mode t)
+(smartparens-global-mode t)
+(transient-mark-mode t)
+(which-function-mode t)
+
+;; rainbow paranthesis
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'prog-mode-hook #'rainbow-mode)
+
+(windmove-default-keybindings 'shift)
+
+(projectile-global-mode t)
+(yas-global-mode t)
+(global-undo-tree-mode t)
+#+END_SRC
+
 ** Set up magit and magithub
 
 #+BEGIN_SRC emacs-lisp
@@ -174,4 +200,16 @@ https://melpa.org/
               (local-set-key (kbd "<tab>") 'outline-cycle)
               (setq outline-regexp "#+")))
 
+#+END_SRC
+
+** Global key setup
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key [f2] 'split-window-horizontally)
+(global-set-key [f5] 'helm-imenu)
+(global-set-key [f7] 'helm-projectile-find-file)
+(global-set-key "\C-xg" 'magit-status)
+
+;; use helm!
+(global-set-key (kbd "M-x") 'helm-M-x)
 #+END_SRC
