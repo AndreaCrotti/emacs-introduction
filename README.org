@@ -115,7 +115,7 @@ Everything works on buffers:
 
            flycheck
            flycheck-joker
-           kibit
+           kibit-helper
 
            helm
            helm-ag
@@ -202,21 +202,27 @@ Everything works on buffers:
 ** Cider settings
 
 #+BEGIN_SRC emacs-lisp
-   (require 'cider)
-   (require 'cider-eldoc)
-   (require 'clj-refactor)
+  (require 'cider)
+  (require 'cider-eldoc)
+  (require 'clj-refactor)
 
-   (require 'flycheck-joker)
+  (require 'flycheck-joker)
 
-   (autoload 'clojure-mode "clojure-mode" "clojure mode" t)
+  (autoload 'clojure-mode "clojure-mode" "clojure mode" t)
 
-   (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
+  (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
 
-   (add-hook 'clojure-mode-hook 'cider-mode)
-   (add-hook 'clojurescript-mode-hook 'cider-mode)
+  (add-hook 'clojure-mode-hook 'cider-mode)
+  (add-hook 'clojurescript-mode-hook 'cider-mode)
 
-   (setq cider-repl-use-clojure-font-lock t
-         cider-auto-test-mode t)
+  (add-hook 'clojure-mode-hook
+            (lambda ()
+              (setq-local cider-repl-use-pretty-printing t)
+              (local-set-key [f6] 'cljr-helm)
+              (local-set-key (kbd "<C-f5>") 'cider-test-run-test)
+              (cider-auto-test-mode t)))
+
+  (setq cider-repl-use-clojure-font-lock t)
 #+END_SRC
 
 ** Platform specific settings
@@ -231,7 +237,7 @@ Everything works on buffers:
 ** Load a nice theme
 
 #+BEGIN_SRC emacs-lisp
-  ;; (load-theme 'noctilux)
+  (load-theme 'noctilux)
 #+END_SRC
 
 ** Restclient configuration
@@ -265,7 +271,7 @@ Everything works on buffers:
 
 (helm-mode t)
 
-(helmq-autoresize-mode t)
+(helm-autoresize-mode t)
 
 (setq helm-buffers-fuzzy-matching t
       helm-recentf-fuzzy-match t
@@ -300,6 +306,9 @@ Everything works on buffers:
 
   ;; use helm!
   (global-set-key (kbd "M-x") 'helm-M-x)
+  (global-set-key (kbd "C-x C-f") 'helm-find-files)
+  (global-set-key (kbd "C-x b") 'helm-mini)
+  (global-set-key "\C-x\C-b" 'helm-buffers-list)
 
   (global-set-key (kbd "M-p") 'ca-prev-defun)
   (global-set-key (kbd "M-n") 'ca-next-defun)
