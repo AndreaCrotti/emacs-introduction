@@ -27,17 +27,18 @@
 
 * Some numbers
 
+- first official version in 1984
 - ~ 120k Lines of Lisp
 - ~ 30k Lines of C
 - 557 contributors
 - 130k commits
 
-* Terminology
+* Some terminology
 
 - buffer
 - window
 - frame
-- M-x
+- kill/yank
 
 * Melpa!
 
@@ -45,9 +46,19 @@
 
 https://melpa.org/
 
-* Buffers
+* Buffer
+  
+Everything works on buffers:
+
+- *Messages*
+- *scratch*
+- *Shell Output*
+
 * Major - minor mode
-* Commands
+
+1 Major mode, *many* minor modes.
+
+* Common functions
 
 - *defun*
 - *defmacro*
@@ -56,7 +67,6 @@ https://melpa.org/
 - *setq*
 - *add-hook*
 
-* Hooks, hooks everywhere
 * Elisp crash course
 ** Emacs lisp
 
@@ -84,7 +94,6 @@ https://melpa.org/
 #+END_SRC
 
 * Questions?
-
 * Configuration
 ** Useful packages
 
