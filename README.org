@@ -8,7 +8,24 @@
 #+PROPERTY: header-args :tangle yes
 #+TOC: listings
 
-* The venerable Emacs
+* Demo time!
+
+- checkout repository
+- start up Cider
+- evaluate some code
+- do SQL calls with org-mode directly
+- do API calls with restclient mode
+- use dired and do a magic rename example
+- use M-! to spawn commands
+- lookup something in stack overflow
+- stage and commit changes
+- open PR with magithub
+
+* The Church of Emacs
+
+[[./images/stallman.jpg]]
+
+* Some numbers
 
 - ~ 120k Lines of Lisp
 - ~ 30k Lines of C
@@ -17,10 +34,10 @@
 
 * Terminology
 
-  - buffer
-  - window
-  - frame
-  - M-x
+- buffer
+- window
+- frame
+- M-x
 
 * Melpa!
 
@@ -28,21 +45,42 @@
 
 https://melpa.org/
 
-* Text editor?
+* Buffers
 * Major - minor mode
+* Commands
+
+- *defun*
+- *defmacro*
+- *defcustom*
+- *defvar*
+- *setq*
+- *add-hook*
+
 * Hooks, hooks everywhere
-* Self documenting magic
 * Elisp crash course
+** Emacs lisp
 
-- dynamic scoping
-- everything prefixed
+ - Lisp 1 language
+ - dynamic scoping
+ - everything prefixed
 
-#+BEGIN_SRC emacs-lisp :tangle no
-  (defun fib (n)
-    (cond ((= n 0) 0)
-          ((= n 1) 1)
-          (t (+ (fib (- n 1))
-                (fib (- n 2))))))
+** Fibonacci
+
+#+BEGIN_SRC emacs-lisp
+   (defun fib (n)
+     (cond ((= n 0) 0)
+           ((= n 1) 1)
+           (t (+ (fib (- n 1))
+                 (fib (- n 2))))))
+#+END_SRC
+
+** Make it interactive
+
+#+BEGIN_SRC emacs-lisp
+  (defun fib-interactive
+      (number)
+    (interactive "nNumber:\n")
+    (message (format "Result is %s" (fib number))))
 #+END_SRC
 
 * Questions?
