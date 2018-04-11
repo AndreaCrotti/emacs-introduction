@@ -6,4 +6,4 @@ To try out the configuration shipped with this repository
 - `M-x org-babel-tangle`
 
 This will generate a `conf.el` file that contains the full configuration used.
-Simply open that file and `M-x eval-buffer`.
+Simply open that file and `M-x load-file RET conf.el`

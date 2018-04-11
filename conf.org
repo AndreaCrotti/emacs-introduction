@@ -249,6 +249,26 @@
   (global-diff-hl-mode t)
 #+END_SRC
 
+* TODO Org settings
+
+#+BEGIN_SRC emacs-lisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((sql . t)
+     (clojure . t)
+     (lisp . t)
+     (haskell . t)
+     (dot . t)
+     (ruby . t)
+     (scheme . t)
+     ;; (R . t)
+     (ditaa . t)
+     (lisp . t)
+     (lua . t)
+     (python . t)))
+
+#+END_SRC
+
 * Global key setup
 
 #+BEGIN_SRC emacs-lisp
