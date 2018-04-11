@@ -105,6 +105,7 @@ Everything works on buffers:
            clojure-mode
            company-restclient
 
+           dired-details
            diff-hl
            edit-server
            elein
@@ -293,6 +294,20 @@ Everything works on buffers:
 (defun ca-prev-defun ()
   (interactive)
   (beginning-of-defun))
+
+#+END_SRC
+
+** Dired settings
+
+#+BEGIN_SRC emacs-lisp
+  (setq
+   dired-auto-revert-buffer 1
+   dired-isearch-filenames 'dwim)
+
+  (setq dired-listing-switches "-al")
+
+  (require 'dired-details)
+  (dired-details-install)
 
 #+END_SRC
 
