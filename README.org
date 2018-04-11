@@ -21,6 +21,10 @@
 - stage and commit changes
 - open PR with magithub
 
+* Learning Curve
+
+[[./images/learning_curve.jpg]]
+
 * The Church of Emacs
 
 [[./images/stallman.jpg]]
