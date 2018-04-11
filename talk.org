@@ -6,6 +6,14 @@
 #+REVEAL_SPEED: fast
 #+TOC: listings
 
+* The Church of Emacs
+
+[[./images/stallman.jpg]]
+
+* Learning Curve
+
+[[./images/learning_curve.jpg]]
+
 * Demo time!
 
 - start unconfigured Emacs
@@ -21,14 +29,6 @@
 - stage and commit changes
 - open PR with magithub
 
-* Learning Curve
-
-[[./images/learning_curve.jpg]]
-
-* The Church of Emacs
-
-[[./images/stallman.jpg]]
-
 * Some numbers
 
 - first official version in 1984
@@ -37,7 +37,7 @@
 - 557 contributors
 - 130k commits
 
-* Some terminology
+* Basic terminology
 
 - buffer
 - window
@@ -48,13 +48,13 @@
 
 * Melpa!
 
-3778 packages!
+3778 packages and growing!
 
 https://melpa.org/
 
 * Buffer
   
-Everything works on buffers:
+*Everything* works on buffers:
 
 - *Messages*
 - *scratch*
@@ -77,8 +77,14 @@ Everything works on buffers:
 ** Emacs lisp
 
  - Lisp 2
- - dynamic scoping
- - everything prefixed
+ - dynamically scoped
+ - global namespace
+
+Try:
+
+#+BEGIN_SRC emacs-lisp
+  (defun defun nil)
+#+END_SRC
 
 ** Lisp 2?
 
@@ -126,237 +132,3 @@ Lisp2:
 #+END_SRC
 
 * Questions?
-* Configuration
-** Useful packages
-
- #+BEGIN_SRC emacs-lisp
-   (setq my-to-install
-         '(cider
-           cljr-helm
-           company
-           clojure-mode
-           company-restclient
-
-           dired-details
-           diff-hl
-           edit-server
-           elein
-           exec-path-from-shell
-           gist
-           magit
-           magithub
-
-           flycheck
-           flycheck-joker
-           kibit-helper
-
-           helm
-           helm-ag
-           helm-projectile
-           helm-google
-
-           multiple-cursors
-           restclient
-
-           yasnippet
-           yasnippet-snippets
-           smartparens
-           rainbow-delimiters
-           rainbow-mode
-           sx
-
-           ;; few nice themes
-           zenburn-theme
-           noctilux-theme
-           undo-tree))
- #+END_SRC
-
-** Set up package manager
-
-#+BEGIN_SRC emacs-lisp
-  (package-initialize)
-  (add-to-list 'package-archives
-               '("melpa" . "https://melpa.org/packages/"))
-
-  (defun install-if-needed (package)
-    (unless (package-installed-p package)
-      (package-install package)))
-
-  (package-refresh-contents)
-
-  ;; now install all the required packages
-  (mapc 'install-if-needed my-to-install)
-
- #+END_SRC
-
-** Global settings
-
-#+BEGIN_SRC emacs-lisp
-(global-flycheck-mode t)
-(column-number-mode t)
-(display-time-mode t)
-(global-company-mode t)
-(global-linum-mode t)
-(global-prettify-symbols-mode t)
-(indent-guide-global-mode t)
-(show-paren-mode t)
-(smartparens-global-mode t)
-(transient-mark-mode t)
-(which-function-mode t)
-
-;; rainbow paranthesis
-(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-(add-hook 'prog-mode-hook #'rainbow-mode)
-
-(windmove-default-keybindings 'shift)
-
-(projectile-global-mode t)
-(yas-global-mode t)
-(global-undo-tree-mode t)
-#+END_SRC
-
-** Set up magit and magithub
-
-#+BEGIN_SRC emacs-lisp
-  (require 'magit)
-  (require 'magithub)
-  (magithub-feature-autoinject t)
-
-  (setq magit-push-always-verify nil)
-  ;; use Emacs to edit commit mode
-  (global-git-commit-mode t)
-
-  (add-hook 'git-commit-mode-hook
-            (lambda ()
-              (flyspell-mode t)
-              (auto-fill-mode t)))
-#+END_SRC
-
-** Cider settings
-
-#+BEGIN_SRC emacs-lisp
-  (require 'cider)
-  (require 'cider-eldoc)
-  (require 'clj-refactor)
-
-  (require 'flycheck-joker)
-
-  (autoload 'clojure-mode "clojure-mode" "clojure mode" t)
-
-  (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
-
-  (add-hook 'clojure-mode-hook 'cider-mode)
-  (add-hook 'clojurescript-mode-hook 'cider-mode)
-
-  (add-hook 'clojure-mode-hook
-            (lambda ()
-              (setq-local cider-repl-use-pretty-printing t)
-              (local-set-key [f6] 'cljr-helm)
-              (local-set-key (kbd "<C-f5>") 'cider-test-run-test)
-              (cider-auto-test-mode t)))
-
-  (setq cider-repl-use-clojure-font-lock t)
-#+END_SRC
-
-** Platform specific settings
-
-#+BEGIN_SRC emacs-lisp
-  (setq
-   ns-alternate-modifier (quote none)
-   ns-pop-up-frames 1
-   ns-command-modifier (quote meta))
-#+END_SRC
-
-** Load a nice theme
-
-#+BEGIN_SRC emacs-lisp
-  (load-theme 'noctilux)
-#+END_SRC
-
-** Restclient configuration
-
-#+BEGIN_SRC emacs-lisp
-  (require 'restclient)
-  (require 'outline)
-  (require 'outline-magic)
-
-  (add-to-list 'auto-mode-alist '("\\.rest" . restclient-mode))
-
-  (eval-after-load 'outline
-    '(progn
-       (require 'outline-magic)))
-
-  (add-hook 'restclient-mode-hook 'outline-minor-mode)
-  (add-hook 'restclient-mode-hook
-            (lambda ()
-              (outline-minor-mode t)
-              (local-set-key (kbd "<tab>") 'outline-cycle)
-              (setq outline-regexp "#+")))
-
-#+END_SRC
-
-** Helm settings
-
-#+BEGIN_SRC emacs-lisp
-(require 'helm)
-(require 'helm-projectile)
-(require 'helm-config)
-
-(helm-mode t)
-
-(helm-autoresize-mode t)
-
-(setq helm-buffers-fuzzy-matching t
-      helm-recentf-fuzzy-match t
-      helm-locate-fuzzy-match t
-      helm-use-frame-when-more-than-two-windows nil
-      helm-M-x-fuzzy-match t)
-#+END_SRC
-
-** Moving around
-
-
-#+BEGIN_SRC emacs-lisp
-
-(defun ca-next-defun ()
-  (interactive)
-  (end-of-defun 2)
-  (beginning-of-defun 1))
-
-(defun ca-prev-defun ()
-  (interactive)
-  (beginning-of-defun))
-
-#+END_SRC
-
-** Dired settings
-
-#+BEGIN_SRC emacs-lisp
-  (setq
-   dired-auto-revert-buffer 1
-   dired-isearch-filenames 'dwim)
-
-  (setq dired-listing-switches "-al")
-
-  (require 'dired-details)
-  (dired-details-install)
-
-#+END_SRC
-
-** Global key setup
-
-#+BEGIN_SRC emacs-lisp
-  (global-set-key [f2] 'split-window-horizontally)
-  (global-set-key [f5] 'helm-imenu)
-  (global-set-key [f7] 'helm-projectile-find-file)
-  (global-set-key "\C-xg" 'magit-status)
-
-  ;; use helm!
-  (global-set-key (kbd "M-x") 'helm-M-x)
-  (global-set-key (kbd "C-x C-f") 'helm-find-files)
-  (global-set-key (kbd "C-x b") 'helm-mini)
-  (global-set-key "\C-x\C-b" 'helm-buffers-list)
-
-  (global-set-key (kbd "M-p") 'ca-prev-defun)
-  (global-set-key (kbd "M-n") 'ca-next-defun)
-#+END_SRC
