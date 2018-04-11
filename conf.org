@@ -1,133 +1,7 @@
-#+TITLE: Emacs Introduction
-#+AUTHOR: Andrea Crotti
-#+EMAIL: andrea.crotti.0@gmail.com
-#+OPTIONS: num:nil ^:nil tex:t toc:nil reveal_progress:t reveal_control:t reveal_overview:t
-#+REVEAL_TRANS: fade
-#+REVEAL_SPEED: fast
 #+BABEL: :cache yes
 #+PROPERTY: header-args :tangle yes
-#+TOC: listings
 
-* Demo time!
-
-- checkout repository
-- start up Cider
-- evaluate some code
-- do SQL calls with org-mode directly
-- do API calls with restclient mode
-- use dired and do a magic rename example
-- use M-! to spawn commands
-- lookup something in stack overflow
-- stage and commit changes
-- open PR with magithub
-
-* Learning Curve
-
-[[./images/learning_curve.jpg]]
-
-* The Church of Emacs
-
-[[./images/stallman.jpg]]
-
-* Some numbers
-
-- first official version in 1984
-- ~ 120k Lines of Lisp
-- ~ 30k Lines of C
-- 557 contributors
-- 130k commits
-
-* Some terminology
-
-- buffer
-- window
-- frame
-- kill/yank
-- minibuffer
-- modeline
-
-* Melpa!
-
-3778 packages!
-
-https://melpa.org/
-
-* Buffer
-  
-Everything works on buffers:
-
-- *Messages*
-- *scratch*
-- *Shell Output*
-
-* Major - minor mode
-
-1 Major mode, *many* minor modes.
-
-* Common functions
-
-- *defun*
-- *defmacro*
-- *defcustom*
-- *defvar*
-- *setq*
-- *add-hook*
-
-* Elisp crash course
-** Emacs lisp
-
- - Lisp 2
- - dynamic scoping
- - everything prefixed
-
-** Lisp 2?
-
-Lisp1:
-
-#+BEGIN_SRC lisp
-  (sort (list 5 2 6 3 1 4) #’>)
-#+END_SRC
-
-Lisp2:
-
-#+BEGIN_SRC scheme
-  (sort (list 5 2 6 3 1 4) >)
-#+END_SRC
-
-
-#+BEGIN_SRC emacs-lisp
-  ;; emacs lisp is lisp-2
-
-  (defun xx (yy) yy ) ; a function that returns its arg
-
-  (setq xx 4) ; a variable with value 4
-
-  (print (xx 3)) ; prints 3
-  (print xx) ; prints 4
-#+END_SRC
-
-** Fibonacci
-
-#+BEGIN_SRC emacs-lisp
-   (defun fib (n)
-     (cond ((= n 0) 0)
-           ((= n 1) 1)
-           (t (+ (fib (- n 1))
-                 (fib (- n 2))))))
-#+END_SRC
-
-** Make it interactive
-
-#+BEGIN_SRC emacs-lisp
-  (defun fib-interactive
-      (number)
-    (interactive "nNumber:\n")
-    (message (format "Result is %s" (fib number))))
-#+END_SRC
-
-* Questions?
-* Configuration
-** Useful packages
+* Useful packages
 
  #+BEGIN_SRC emacs-lisp
    (setq my-to-install
@@ -171,7 +45,7 @@ Lisp2:
            undo-tree))
  #+END_SRC
 
-** Set up package manager
+* Set up package manager
 
 #+BEGIN_SRC emacs-lisp
   (package-initialize)
@@ -189,7 +63,7 @@ Lisp2:
 
  #+END_SRC
 
-** Global settings
+* Global settings
 
 #+BEGIN_SRC emacs-lisp
 (global-flycheck-mode t)
@@ -215,7 +89,7 @@ Lisp2:
 (global-undo-tree-mode t)
 #+END_SRC
 
-** Set up magit and magithub
+* Set up magit and magithub
 
 #+BEGIN_SRC emacs-lisp
   (require 'magit)
@@ -232,7 +106,7 @@ Lisp2:
               (auto-fill-mode t)))
 #+END_SRC
 
-** Cider settings
+* Cider settings
 
 #+BEGIN_SRC emacs-lisp
   (require 'cider)
@@ -258,7 +132,7 @@ Lisp2:
   (setq cider-repl-use-clojure-font-lock t)
 #+END_SRC
 
-** Platform specific settings
+* Platform specific settings
 
 #+BEGIN_SRC emacs-lisp
   (setq
@@ -267,13 +141,13 @@ Lisp2:
    ns-command-modifier (quote meta))
 #+END_SRC
 
-** Load a nice theme
+* Load a nice theme
 
 #+BEGIN_SRC emacs-lisp
   (load-theme 'noctilux)
 #+END_SRC
 
-** Restclient configuration
+* Restclient configuration
 
 #+BEGIN_SRC emacs-lisp
   (require 'restclient)
@@ -295,7 +169,7 @@ Lisp2:
 
 #+END_SRC
 
-** Helm settings
+* Helm settings
 
 #+BEGIN_SRC emacs-lisp
 (require 'helm)
@@ -313,7 +187,7 @@ Lisp2:
       helm-M-x-fuzzy-match t)
 #+END_SRC
 
-** Moving around
+* Moving around
 
 
 #+BEGIN_SRC emacs-lisp
@@ -329,7 +203,7 @@ Lisp2:
 
 #+END_SRC
 
-** Dired settings
+* Dired settings
 
 #+BEGIN_SRC emacs-lisp
   (setq
@@ -343,7 +217,7 @@ Lisp2:
 
 #+END_SRC
 
-** Global key setup
+* Global key setup
 
 #+BEGIN_SRC emacs-lisp
   (global-set-key [f2] 'split-window-horizontally)
