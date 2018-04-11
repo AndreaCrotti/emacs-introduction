@@ -30,6 +30,7 @@
            helm-google
 
            multiple-cursors
+	   powerline
            restclient
 
            yasnippet
@@ -215,6 +216,37 @@
   (require 'dired-details)
   (dired-details-install)
 
+#+END_SRC
+
+* Frame configuration
+
+#+BEGIN_SRC emacs-lisp
+  (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+  (if (fboundp 'horizontal-scroll-bar-mode) (horizontal-scroll-bar-mode -1))
+  (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+  (menu-bar-mode -1)
+
+  ;; set up a nicer modeline
+  (require 'powerline)
+  (setq powerline-arrow-shape 'curve)
+  (setq powerline-default-separator-dir '(right . left))
+  ;; These two lines you really need.
+  (setq sml/theme 'powerline)
+  (sml/setup)
+#+END_SRC
+
+* Highlighting
+  
+#+BEGIN_SRC emacs-lisp
+  (require 'highlight-blocks)
+  (require 'highlight-indent-guides)
+  (require 'diff-hl)
+
+  (global-auto-highlight-symbol-mode t)
+
+  (add-hook 'prog-mode-hook 'highlight-blocks-mode)
+  (indent-guide-global-mode t)
+  (global-diff-hl-mode t)
 #+END_SRC
 
 * Global key setup

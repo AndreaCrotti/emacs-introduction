@@ -8,6 +8,8 @@
 
 * Demo time!
 
+- start unconfigured Emacs
+- tangle and load the configuration
 - checkout repository
 - start up Cider
 - evaluate some code
