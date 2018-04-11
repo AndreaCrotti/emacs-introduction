@@ -43,6 +43,8 @@
 - window
 - frame
 - kill/yank
+- minibuffer
+- modeline
 
 * Melpa!
 
@@ -74,9 +76,35 @@ Everything works on buffers:
 * Elisp crash course
 ** Emacs lisp
 
- - Lisp 1 language
+ - Lisp 2
  - dynamic scoping
  - everything prefixed
+
+** Lisp 2?
+
+Lisp1:
+
+#+BEGIN_SRC lisp
+  (sort (list 5 2 6 3 1 4) #’>)
+#+END_SRC
+
+Lisp2:
+
+#+BEGIN_SRC scheme
+  (sort (list 5 2 6 3 1 4) >)
+#+END_SRC
+
+
+#+BEGIN_SRC emacs-lisp
+  ;; emacs lisp is lisp-2
+
+  (defun xx (yy) yy ) ; a function that returns its arg
+
+  (setq xx 4) ; a variable with value 4
+
+  (print (xx 3)) ; prints 3
+  (print xx) ; prints 4
+#+END_SRC
 
 ** Fibonacci
 
